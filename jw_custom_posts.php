@@ -58,15 +58,37 @@ class JW_Post_Type
      */
     function register_post_type()
     {
-        $n = ucwords($this->post_type_name);
+        // Get the post type name
+        $type = $this->post_type_name;
+
+        // Upercase the name
+        $n = ucwords($type);
+
+        // Pluralize
+        $plural = $n . 's';
 
         $args = array(
-            "label" => $n . 's',
-            'singular_name' => $n,
+            
+            "labels" => array( 
+                'name' => _x( $n, $type ),
+                'singular_name' => _x( $n, $type ),
+                'menu_name' => _x( $plural, $type ),
+                'all_items' => _x( "All $plural", $type ),
+                'add_new' => _x( "Add New", $type ),
+                'add_new_item' =>  _x( "Add new $n", $type ),
+                'edit_item' => _x( "Edit $n", $type ),
+                'new_item' => _x( "New $n", $type ),
+                'view_item' => _x( "View $n", $type ),
+                'items_archive' => _x( "$n Archive", $type ),
+                'search_items' => _x( "Search $n", $type ),
+                'not_found' => _x( "$plural Not Found", $type ),
+                'not_found_in_trash' => _x( "No $plural found in Trash", $type ),
+                'parent_item_colon' => _x( "Parent $n", $type )
+            ),
+            
             "public" => true,
             "publicly_queryable" => true,
             "query_var" => true,
-            #"menu_icon" => get_stylesheet_directory_uri() . "/article16.png",
             "rewrite" => true,
             "capability_type" => "post",
             "hierarchical" => false,
